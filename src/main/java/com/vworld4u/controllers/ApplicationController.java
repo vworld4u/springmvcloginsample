@@ -26,8 +26,19 @@ public class ApplicationController {
 	public String register(Model model) {
 		log.info("GET register");
 		User user = new User();
+		user.setName("Venki");
+		user.setEmail("venki@gmail.com");
+		user.setDateOfBirth(new Date());
+		user.setPassword("pass");
+		user.setUserType(UserType.Student);
 		model.addAttribute("user", user);
 		return "register";
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/")
+	public String rootPath() {
+		log.info("GET rootPath: ");
+		return "hello";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/hello")
