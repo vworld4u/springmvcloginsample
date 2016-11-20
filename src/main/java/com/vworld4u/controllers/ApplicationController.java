@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -56,8 +57,6 @@ public class ApplicationController {
 	@RequestMapping(method = RequestMethod.GET, value = "/home")
 	public String home(Model model) {
 		log.info("GET home: ");
-		User user = new User();
-		model.addAttribute("user", user);
 		return "home";
 	}
 
@@ -106,6 +105,43 @@ public class ApplicationController {
 			new SecurityContextLogoutHandler().logout(request, response, auth);
 		}
 		return "redirect:/login?logout";//You can redirect wherever you want, but generally it's a good idea to show login screen again.
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/profile")
+	public String getProfile(Model model) {
+		log.info("GET profile: ");
+		try {
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			String email;
+			if (auth.getPrincipal() instanceof UserDetails) {
+				email = ((UserDetails) auth.getPrincipal()).getUsername();
+			} else {
+				email = auth.getPrincipal().toString();
+			}
+			log.info("getProfile: Email = " + email);
+			User user = userService.getUserByEmail(email);
+			log.info("getProfile: User fetched = " + user);
+			model.addAttribute("user", user);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
+		}
+		return "profile";
+	}
+
+	@RequestMapping(method = RequestMethod.POST, value = "/profile")
+	public String updateProfile(@ModelAttribute User user, Model model) {
+		log.info("POST profile: " + user);
+		try {
+			User updatedUser = userService.editUser(user);
+			log.info("updateProfile: Updated User = " + updatedUser);
+			model.addAttribute("updatedUser", updatedUser);
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("error", e.getMessage());
+			return "profile";
+		}
+		return "profile";
 	}
 
 }

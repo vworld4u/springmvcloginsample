@@ -1,25 +1,26 @@
 <html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{fragments/layout :: layout (~{::body})}">
+	th:replace="~{fragments/loggedlayout:: loggedlayout (~{::body}, 'profile')}">
 <body>
 	<div class="panel panel-default"
-		style="margin-top: 200px; width: 300px;">
+		style="margin-top: 150px; width: 300px;">
 		<div class="panel-heading text-center">
-			<h2 class="text-primary">Registration Page</h2>
+			<h2 class="text-primary">Edit Profile</h2>
 		</div>
 		<div class="panel-body">
-			<div th:if="${error}" class="text-warning">
-				<h2>
+			<div th:if="${error}">
+				<h2 class="text-warning">
 					Error: <span th:text="${error}"></span>
 				</h2>
 			</div>
-			<div th:if="${registeredUser}" class="text-success">
-				<h2>User registration successful</h2>
+			<div th:if="${updatedUser}">
+				<p class="text-success">Your profile got updated successfully</p>
 			</div>
-			<form action="#" th:action="@{/register}" method="POST" class="form"
+			<form action="#" th:action="@{/profile}" method="POST" class="form"
 				th:object="${user}">
+				<input type="hidden" th:field="*{id}" name="id" />
 				<div class="form-group">
-					<label> Name : <input type="text" name="name" class="form-control"
-						th:field="*{name}" />
+					<label> Name : <input type="text" name="name"
+						th:field="*{name}" class="form-control" />
 					</label>
 				</div>
 				<div class="form-group">
@@ -39,19 +40,14 @@
 					</label>
 				</div>
 				<div class="form-group">
-					<label> Password: <input type="password" class="form-control"
-						value="pass" th:field="*{password}" />
+					<label> Password: <input type="password" name="password" class="form-control"
+						th:field="*{password}" />
 					</label>
 				</div>
-				<hr/>
-				<div class="form-group" style="margin-top: 20px;">
-					<input type="submit" value="Sign Up" class="btn btn-primary" style="margin-right: 10px;"/><input type="reset"
-						value="Reset"  class="btn btn-default pull-right" style="margin-right: 10px;"/>
+				<div class="form-group">
+					<input type="submit" value="Edit Profile" class="btn btn-primary pull-right" />
 				</div>
 			</form>
-		</div>
-		<div class="panel-footer text-center">
-		<a type="button" href="/login" class="btn btn-success">I want to login</a>
 		</div>
 	</div>
 </body>
