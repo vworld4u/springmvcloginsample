@@ -18,5 +18,10 @@ It is same as [Spring MVC Rest API Sample](https://github.com/vworld4u/springmvc
 ## Why Thymeleaf?
 After working with JSP pages few years back and working on template engines like Handlebars/Mustache, I was searching for something like them and found thymeleaf very promising! I decided to give it a try.
 
+## Which database does it use?
+It uses mysql database which can be configured in `src/main/resources/application.properties`. If you want to use HSQLDB for testing, just comment out all properties inside the properties file specified.
+
+ 
 ## What is pending yet?
-1. MySQL integration 
+1. More styling and other pages 
+2. Preferably user logged in page should be a single page application with other functionalities
