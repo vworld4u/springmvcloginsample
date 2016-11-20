@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>Registration Page</title>
+</head>
+<body>
+	<h2>Sample Registration Page</h2>
+	<!-- -->  <div th:if="${error}">
+		<h2>Error: <span th:text="${error}"></span></h2>
+	</div>
+	<div th:if="${registeredUser}">
+		<h2>User registration successful</h2>
+	</div>
+	<form action="#" th:action="@{/register}" method="POST"
+		th:object="${user}">
+		<div>
+			<label> Name : <input type="text" name="name" value="Venki"
+				th:field="*{name}" />
+			</label>
+		</div>
+		<div>
+			<label> User Type : <select name="userType"
+				th:field="*{userType}"><option value="Teacher">Teacher</option>
+					<option value="Student">Student</option></select>
+			</label>
+		</div>
+		<div>
+			<label> Date of Birth : <input type="date" name="dateOfBirth"
+				th:field="*{userType}" />
+			</label>
+		</div>
+		<div>
+			<label> Email : <input type="text" name="email"
+				value="venki@gmail.com" th:field="*{email}" />
+			</label>
+		</div>
+		<div>
+			<label> Password: <input type="password" name="password"
+				value="pass" th:field="*{password}" />
+			</label>
+		</div>
+		<div>
+			<input type="submit" value="Sign Up" /><input type="reset"
+				value="Reset" /><a type="button" href="/login">Login</a>
+		</div>
+	</form>
+</body>
+</html>
