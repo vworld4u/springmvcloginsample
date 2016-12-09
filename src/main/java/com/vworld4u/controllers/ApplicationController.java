@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.vworld4u.models.User;
 import com.vworld4u.models.UserType;
+import com.vworld4u.services.RegistrationHandler;
 import com.vworld4u.services.UserService;
 
 @Controller
@@ -28,6 +29,7 @@ public class ApplicationController {
 
 	@Autowired
 	private UserService userService;
+	@Autowired RegistrationHandler registrationHandler;
 
 	@RequestMapping(method=RequestMethod.GET, value="/register")
 	public String register(Model model) {
@@ -90,6 +92,8 @@ public class ApplicationController {
 		try {
 			User registeredUser = userService.register(user);
 			log.info("registeredUser: " + registeredUser);
+			log.info("Sending Email");
+			registrationHandler.sendRegistrationEmail(registeredUser);
 			model.addAttribute("registeredUser", registeredUser);
 		} catch (Exception e) {
 			e.printStackTrace();

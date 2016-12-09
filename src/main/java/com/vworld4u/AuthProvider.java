@@ -31,6 +31,8 @@ public class AuthProvider implements AuthenticationProvider, UserDetailsService 
 	static {
 		AUTHORITIES.add(new SimpleGrantedAuthority("ROLE_USER"));
 	}
+	
+	
 	@Override
 	public Authentication authenticate(Authentication auth) throws AuthenticationException {
 		String email = (String) auth.getPrincipal();

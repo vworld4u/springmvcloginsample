@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @Entity
@@ -21,11 +23,13 @@ public class User {
 	private String name;
 	private String email;
 	private String password;
+	private boolean isActive;
 
 //	@Enumerated(EnumType.STRING)
 	@JsonDeserialize(using=UserTypeDeserializer.class)
 	private UserType userType;
-	
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	private Date dateOfBirth;
 
@@ -77,10 +81,18 @@ public class User {
 		this.dateOfBirth = dateOfBirth;
 	}
 
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", email=" + email + ", userType=" + userType + ", dateOfBirth="
-				+ dateOfBirth + ", password = " + password + "]";
+				+ dateOfBirth + ", isActive = " + isActive + "]";
 	}
 
 	public void copyFrom(User user) {
