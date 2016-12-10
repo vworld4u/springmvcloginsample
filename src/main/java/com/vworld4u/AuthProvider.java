@@ -31,20 +31,21 @@ public class AuthProvider implements AuthenticationProvider, UserDetailsService 
 	static {
 		AUTHORITIES.add(new SimpleGrantedAuthority("ROLE_USER"));
 	}
-	
-	
+
 	@Override
 	public Authentication authenticate(Authentication auth) throws AuthenticationException {
 		String email = (String) auth.getPrincipal();
 		String password = (String) auth.getCredentials();
-		
+
 		log.info("loginAttempted: " + email + "/" + password);
 		User user = userRepository.findByEmail(email);
 		log.info("loginAttempted: ExUser = " + user);
 		if (user == null || !user.getPassword().equals(password)) {
 			throw new BadCredentialsException("Invalid Credentials");
 		}
-
+		if (!user.isActive()) {
+			throw new UsernameNotFoundException("User is not yet active. Please verify your user email address.");
+		}
 		log.info("loginAttempted: Login Success");
 		return new UsernamePasswordAuthenticationToken(user.getEmail(), password, AUTHORITIES);
 	}
@@ -57,6 +58,9 @@ public class AuthProvider implements AuthenticationProvider, UserDetailsService 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user = userRepository.findByEmail(username);
+		if (!user.isActive()) {
+			throw new UsernameNotFoundException("User is not yet active. Please verify your user email address.");
+		}
 		UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), null);
 		return userDetails;
 	}

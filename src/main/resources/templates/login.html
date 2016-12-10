@@ -7,7 +7,7 @@
 			<h2>Login Page</h2>
 		</div>
 		<div class="panel-body">
-			<div th:if="${param.error}">Invalid username and password.</div>
+			<div th:if="${param.error}">Invalid Credentials or your account is not yet verified.</div>
 			<div th:if="${param.logout}">You have been logged out.</div>
 			<form th:action="@{/login}" method="post" class="form">
 				<div class="form-group">
