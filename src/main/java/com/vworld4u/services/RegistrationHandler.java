@@ -4,5 +4,5 @@ import com.vworld4u.models.User;
 
 public interface RegistrationHandler {
 	public void sendRegistrationEmail(User user);
-	public void verifyUser(String code, String email);
+	public void verifyUser(String code, String email) throws Exception;
 }

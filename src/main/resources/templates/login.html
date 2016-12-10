@@ -2,32 +2,34 @@
 	th:replace="~{fragments/layout :: layout (~{::body})}">
 
 <body>
-	<div class="panel panel-default" style="margin-top: 200px; width: 250px;">
+	<div class="panel panel-default">
+		<div class="panel-heading text-center">
+			<h2>Login Page</h2>
+		</div>
 		<div class="panel-body">
 			<div th:if="${param.error}">Invalid username and password.</div>
 			<div th:if="${param.logout}">You have been logged out.</div>
 			<form th:action="@{/login}" method="post" class="form">
 				<div class="form-group">
-					<label> User Name : <input type="text" name="username"
-						value="venki@gmail.com" class="form-control" />
-					</label>
+					<label for="username"> User Name : </label>
+					<input type="text" name="username"
+						value="vworld4u@gmail.com" class="form-control" />
 				</div>
 				<div>
-					<label> Password: <input class="form-control" type="password" name="password"
+					<label for="password"> Password: </label>
+					<input class="form-control" type="password" name="password"
 						value="pass" />
-					</label>
 				</div>
-				<div class="g-recaptcha" data-sitekey="6Lf_Xg4UAAAAAPTIMYR3y88JpveELhgR_8f3Foti"></div>
-				<div class="form-group" style="margin-top: 20px;">
-					<input type="submit" value="Sign In" class="btn btn-primary pull-right"/>
+				<hr>
+				<!--  <div class="g-recaptcha" data-sitekey="6Lf_Xg4UAAAAAPTIMYR3y88JpveELhgR_8f3Foti"></div> -->
+				<div class="form-group text-center" style="margin-top: 20px;">
+					<input type="submit" value="Sign In" class="btn btn-primary"/>
 				</div>
 			</form>
-			<br />
-			<hr />
 		</div>
 		<div class="panel-footer text-center">
 			<p>
-				<a href="/register" class="btn btn-default">I want to register now</a>
+				<a href="/register" class="btn btn-primary">I want to register now</a>
 			</p>
 		</div>
 	</div>

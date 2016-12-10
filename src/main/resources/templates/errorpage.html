@@ -1,0 +1,8 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{fragments/layout :: layout (~{::body})}">
+    <body>
+        <h1>We never wanted you to see this!</h1>
+        
+        <p th:if="${error}" class="text-danger">Error: <span th:text="${error}"></span></p>
+    </body>
+</html>

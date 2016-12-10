@@ -1,5 +1,6 @@
 package com.vworld4u.controllers;
 
+import java.util.Base64;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,7 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -36,7 +38,7 @@ public class ApplicationController {
 		log.info("GET register");
 		User user = new User();
 		user.setName("Venki");
-		user.setEmail("venki@gmail.com");
+		user.setEmail("vworld4u@gmail.com");
 		user.setDateOfBirth(new Date());
 		user.setPassword("pass");
 		user.setUserType(UserType.Student);
@@ -100,6 +102,20 @@ public class ApplicationController {
 			model.addAttribute("error", e.getMessage());
 		}
 		return "register";
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/verifyregistration/{emaildigest}/{vercode}")
+	public String register(@PathVariable String emaildigest, @PathVariable String vercode, Model model) {
+		log.info("GET verifyRegistration: Email Digest = " + emaildigest + " Verification Code = " + vercode);
+		try {
+			registrationHandler.verifyUser(vercode, new String(Base64.getDecoder().decode(emaildigest)));
+			log.info("User Verified : Sending Verification Success Page");
+			return "verifysuccess";
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("error", "User Verification Failed : " + e.getMessage());
+		}
+		return "errorpage";
 	}
 	
 	@RequestMapping(value="/logout", method = RequestMethod.GET)

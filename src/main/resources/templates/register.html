@@ -17,30 +17,29 @@
 			<form action="#" th:action="@{/register}" method="POST" class="form"
 				th:object="${user}">
 				<div class="form-group">
-					<label> Name : <input type="text" name="name" class="form-control"
+					<label for="name"> Name : </label>
+					<input type="text" name="name" class="form-control"
 						th:field="*{name}" />
-					</label>
 				</div>
 				<div class="form-group">
-					<label> User Type : <select name="userType" class="form-control"
+					<label for="userType"> User Type : </label>
+					<select name="userType" class="form-control"
 						th:field="*{userType}"><option value="Teacher">Teacher</option>
 							<option value="Student">Student</option></select>
-					</label>
 				</div>
 				<div class="form-group">
-					<label> Date of Birth : <input type="date" class="form-control"
+					<label for="dateOfBirth"> Date of Birth : </label>
+					<input type="date" class="form-control"
 						name="dateOfBirth" th:field="*{dateOfBirth}" />
-					</label>
 				</div>
 				<div class="form-group">
-					<label> Email : <input type="text" name="email" class="form-control"
+					<label for="email"> Email : </label><input type="text" name="email" class="form-control"
 						th:field="*{email}" />
-					</label>
 				</div>
 				<div class="form-group">
-					<label> Password: <input type="password" class="form-control"
+					<label for="password"> Password: </label>
+					<input name="password" type="password" class="form-control"
 						value="pass" th:field="*{password}" />
-					</label>
 				</div>
 				<hr/>
 				<div class="g-recaptcha" data-sitekey="6Lf_Xg4UAAAAAPTIMYR3y88JpveELhgR_8f3Foti"></div>

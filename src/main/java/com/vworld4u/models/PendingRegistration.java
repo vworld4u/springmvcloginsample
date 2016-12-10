@@ -23,6 +23,10 @@ public class PendingRegistration {
 	private Date creationTime;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date validUpto;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date verifiedOn;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date emailSentOn;
 
 	public long getId() {
 		return id;
@@ -60,9 +64,22 @@ public class PendingRegistration {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public Date getVerifiedOn() {
+		return verifiedOn;
+	}
+	public void setVerifiedOn(Date verifiedOn) {
+		this.verifiedOn = verifiedOn;
+	}
+	public Date getEmailSentOn() {
+		return emailSentOn;
+	}
+	public void setEmailSentOn(Date emailSentOn) {
+		this.emailSentOn = emailSentOn;
+	}
 	@Override
 	public String toString() {
-		return "PendingRegistration [id=" + id + ", user=" + user + ", verificationCode=" + verificationCode
-				+ ", creationTime=" + creationTime + ", validUpto=" + validUpto + ", emailAddress = " + email + "]";
+		return "PendingRegistration [id=" + id + ", user=" + user + ", email=" + email + ", verificationCode="
+				+ verificationCode + ", creationTime=" + creationTime + ", validUpto=" + validUpto + ", verifiedOn="
+				+ verifiedOn + ", emailSentOn=" + emailSentOn + "]";
 	}
 }

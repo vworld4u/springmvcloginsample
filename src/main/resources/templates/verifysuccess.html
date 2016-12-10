@@ -1,0 +1,9 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{fragments/layout :: layout (~{::body})}">
+    <body>
+        <h1>Welcome User!</h1>
+        
+        <p>Your Account has been successfully verified.</p>
+        <p>Click <a th:href="@{/login}">here</a> to login to our services</p>
+    </body>
+</html>
